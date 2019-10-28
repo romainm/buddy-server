@@ -2,9 +2,9 @@ package server
 
 import (
     "log"
-
     "github.com/gin-gonic/gin"
     "github.com/romainm/buddy-server/internal/handlers"
+    "github.com/romainm/buddy-server/internal/orm"
     "github.com/romainm/buddy-server/pkg/utils"
 )
 
@@ -20,7 +20,8 @@ func init() {
 }
 
 // Run spins up the server
-func Run() {
+func Run(orm *orm.ORM) {
+
     endpoint := "http://" + host + ":" + port
 
     r := gin.Default()
@@ -35,7 +36,7 @@ func Run() {
         r.GET(gqlPgPath, handlers.PlaygroundHandler(gqlPath))
         log.Println("GraphQL Playground @ " + endpoint + gqlPgPath)
     }
-    r.POST(gqlPath, handlers.GraphqlHandler())
+    r.POST(gqlPath, handlers.GraphqlHandler(orm))
     log.Println("GraphQL @ " + endpoint + gqlPath)
 
     // Run the server

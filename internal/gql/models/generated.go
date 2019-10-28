@@ -2,13 +2,13 @@
 
 package models
 
-type User struct {
-	ID     *string `json:"id"`
-	Email  *string `json:"email"`
-	UserID *string `json:"userId"`
+type Transaction struct {
+	ID     *int     `json:"id"`
+	Name   *string  `json:"name"`
+	Amount *float64 `json:"amount"`
 }
 
-type UserInput struct {
-	Email  *string `json:"email"`
-	UserID *string `json:"userId"`
+type TransactionInput struct {
+	Name   *string  `json:"name"`
+	Amount *float64 `json:"amount"`
 }
