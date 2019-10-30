@@ -9,7 +9,7 @@ import (
 func TransactionToGraph(i *dbm.Transaction) (o *gql.Transaction, err error) {
   id_ := int(i.ID)
   o = &gql.Transaction{
-    ID:          &id_,
+    ID:          id_,
     Name:        i.Name,
     Amount:      i.Amount,
   }
@@ -17,7 +17,7 @@ func TransactionToGraph(i *dbm.Transaction) (o *gql.Transaction, err error) {
 }
 
 // GQLInputUserToDBUser transforms [user] gql input to db model
-func TransactionInputToDb(i *gql.TransactionInput, update bool, ids ...string) (o *dbm.Transaction, err error) {
+func TransactionInputToDb(i *gql.TransactionInput) (o *dbm.Transaction, err error) {
   o = &dbm.Transaction{
     Name:        i.Name,
     Amount:      i.Amount,

@@ -7,11 +7,9 @@ import (
 )
 
 var (
-	name = "Optus"
-	amount = 123.45
     firstTransaction   *models.Transaction = &models.Transaction{
-        Name:        &name,
-		Amount:		 &amount,
+        Name:        "Optus",
+		Amount:		 69.99,
     }
 )
 

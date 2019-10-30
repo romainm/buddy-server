@@ -6,6 +6,6 @@ import (
 
 type Transaction struct {
   gorm.Model
-  Name         *string
-  Amount       *float64 
+  Name         string
+  Amount       float64 
 }

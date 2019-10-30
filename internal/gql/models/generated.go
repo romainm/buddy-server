@@ -3,12 +3,12 @@
 package models
 
 type Transaction struct {
-	ID     *int     `json:"id"`
-	Name   *string  `json:"name"`
-	Amount *float64 `json:"amount"`
+	ID     int     `json:"id"`
+	Name   string  `json:"name"`
+	Amount float64 `json:"amount"`
 }
 
 type TransactionInput struct {
-	Name   *string  `json:"name"`
-	Amount *float64 `json:"amount"`
+	Name   string  `json:"name"`
+	Amount float64 `json:"amount"`
 }

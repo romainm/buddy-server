@@ -1,14 +1,14 @@
 # Types
 type Transaction {
-  id: Int
-  name: String
-  amount: Float
+  id: Int!
+  name: String!
+  amount: Float!
 }
 
 # Input Types
 input TransactionInput {
-  name: String
-  amount: Float
+  name: String!
+  amount: Float!
 }
 
 # Define mutations here
@@ -20,5 +20,5 @@ type Mutation {
 
 # Define queries here
 type Query {
-  transactions(id: Int): [Transaction]
+  transactions(id: Int): [Transaction!]
 }
