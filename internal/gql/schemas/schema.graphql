@@ -14,7 +14,7 @@ input TransactionInput {
 # Define mutations here
 type Mutation {
   createTransaction(input: TransactionInput!): Transaction!
-  updateTransaction(input: TransactionInput!): Transaction!
+  updateTransaction(id: Int!, input: TransactionInput!): Transaction!
   deleteTransaction(id: Int!): Boolean!
 }
 

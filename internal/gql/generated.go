@@ -45,7 +45,7 @@ type ComplexityRoot struct {
 	Mutation struct {
 		CreateTransaction func(childComplexity int, input models.TransactionInput) int
 		DeleteTransaction func(childComplexity int, id int) int
-		UpdateTransaction func(childComplexity int, input models.TransactionInput) int
+		UpdateTransaction func(childComplexity int, id int, input models.TransactionInput) int
 	}
 
 	Query struct {
@@ -61,7 +61,7 @@ type ComplexityRoot struct {
 
 type MutationResolver interface {
 	CreateTransaction(ctx context.Context, input models.TransactionInput) (*models.Transaction, error)
-	UpdateTransaction(ctx context.Context, input models.TransactionInput) (*models.Transaction, error)
+	UpdateTransaction(ctx context.Context, id int, input models.TransactionInput) (*models.Transaction, error)
 	DeleteTransaction(ctx context.Context, id int) (bool, error)
 }
 type QueryResolver interface {
@@ -117,7 +117,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateTransaction(childComplexity, args["input"].(models.TransactionInput)), true
+		return e.complexity.Mutation.UpdateTransaction(childComplexity, args["id"].(int), args["input"].(models.TransactionInput)), true
 
 	case "Query.transactions":
 		if e.complexity.Query.Transactions == nil {
@@ -230,7 +230,7 @@ input TransactionInput {
 # Define mutations here
 type Mutation {
   createTransaction(input: TransactionInput!): Transaction!
-  updateTransaction(input: TransactionInput!): Transaction!
+  updateTransaction(id: Int!, input: TransactionInput!): Transaction!
   deleteTransaction(id: Int!): Boolean!
 }
 
@@ -275,14 +275,22 @@ func (ec *executionContext) field_Mutation_deleteTransaction_args(ctx context.Co
 func (ec *executionContext) field_Mutation_updateTransaction_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 models.TransactionInput
-	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNTransactionInput2githubᚗcomᚋromainmᚋbuddyᚑserverᚋinternalᚋgqlᚋmodelsᚐTransactionInput(ctx, tmp)
+	var arg0 int
+	if tmp, ok := rawArgs["id"]; ok {
+		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["input"] = arg0
+	args["id"] = arg0
+	var arg1 models.TransactionInput
+	if tmp, ok := rawArgs["input"]; ok {
+		arg1, err = ec.unmarshalNTransactionInput2githubᚗcomᚋromainmᚋbuddyᚑserverᚋinternalᚋgqlᚋmodelsᚐTransactionInput(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg1
 	return args, nil
 }
 
@@ -420,7 +428,7 @@ func (ec *executionContext) _Mutation_updateTransaction(ctx context.Context, fie
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateTransaction(rctx, args["input"].(models.TransactionInput))
+		return ec.resolvers.Mutation().UpdateTransaction(rctx, args["id"].(int), args["input"].(models.TransactionInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)

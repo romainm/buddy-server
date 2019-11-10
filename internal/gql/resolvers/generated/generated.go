@@ -23,7 +23,7 @@ type mutationResolver struct{ *Resolver }
 func (r *mutationResolver) CreateTransaction(ctx context.Context, input models.TransactionInput) (*models.Transaction, error) {
 	panic("not implemented")
 }
-func (r *mutationResolver) UpdateTransaction(ctx context.Context, input models.TransactionInput) (*models.Transaction, error) {
+func (r *mutationResolver) UpdateTransaction(ctx context.Context, id int, input models.TransactionInput) (*models.Transaction, error) {
 	panic("not implemented")
 }
 func (r *mutationResolver) DeleteTransaction(ctx context.Context, id int) (bool, error) {

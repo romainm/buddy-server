@@ -26,9 +26,24 @@ func (r *mutationResolver) CreateTransaction(ctx context.Context, input models.T
   return gql, db.Error
 }
 
-func (r *mutationResolver) UpdateTransaction(ctx context.Context, input models.TransactionInput) (*models.Transaction, error) {
-	panic("not implemented")
+func (r *mutationResolver) UpdateTransaction(ctx context.Context, id int, input models.TransactionInput) (*models.Transaction, error) {
+  dbo, err := tf.TransactionInputToDb(&input)
+  if err != nil {
+    return nil, err
+  }
+  dbo.ID = uint(id)
+  // Create scoped clean db interface
+  db := r.ORM.DB.New().Begin()
+  db = db.Model(&dbo).Update(dbo).First(dbo) // Create the user
+  gql, err := tf.TransactionToGraph(dbo)
+  if err != nil {
+    db.RollbackUnlessCommitted()
+    return nil, err
+  }
+  db = db.Commit()
+  return gql, db.Error
 }
+
 func (r *mutationResolver) DeleteTransaction(ctx context.Context, id int) (bool, error) {
 	panic("not implemented")
 }
