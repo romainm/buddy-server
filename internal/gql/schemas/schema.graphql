@@ -1,24 +1,25 @@
 # Types
 type Transaction {
-  id: Int!
+  id: ID!
   name: String!
   amount: Float!
 }
 
-# Input Types
-input TransactionInput {
-  name: String!
-  amount: Float!
-}
+# # Input Types
+# input TransactionInput {
+#   name: String!
+#   amount: Float!
+# }
 
-# Define mutations here
-type Mutation {
-  createTransaction(input: TransactionInput!): Transaction!
-  updateTransaction(id: Int!, input: TransactionInput!): Transaction!
-  deleteTransaction(id: Int!): Boolean!
-}
+# # Define mutations here
+# type Mutation {
+#   createTransaction(input: TransactionInput!): Transaction!
+#   updateTransaction(id: Int!, input: TransactionInput!): Transaction!
+#   deleteTransaction(id: Int!): Boolean!
+# }
 
 # Define queries here
 type Query {
-  transactions(id: Int): [Transaction!]
+  transactions(id: ID): String!
+  # transactions(id: Int): [Transaction!]
 }

@@ -5,7 +5,6 @@ import (
   dbm "github.com/romainm/buddy-server/internal/orm/models"
 )
 
-// DBUserToGQLUser transforms [user] db input to gql type
 func TransactionToGraph(i *dbm.Transaction) (o *gql.Transaction, err error) {
   id_ := int(i.ID)
   o = &gql.Transaction{
@@ -16,7 +15,6 @@ func TransactionToGraph(i *dbm.Transaction) (o *gql.Transaction, err error) {
   return o, err
 }
 
-// GQLInputUserToDBUser transforms [user] gql input to db model
 func TransactionInputToDb(i *gql.TransactionInput) (o *dbm.Transaction, err error) {
   o = &dbm.Transaction{
     Name:        i.Name,
