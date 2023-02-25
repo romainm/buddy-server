@@ -12,7 +12,7 @@ require (
 	github.com/mattn/go-isatty v0.0.10 // indirect
 	github.com/ugorji/go v1.1.7 // indirect
 	github.com/vektah/gqlparser v1.1.2
-	golang.org/x/sys v0.0.0-20191024073052-e66fe6eb8e0c // indirect
+	golang.org/x/sys v0.1.0 // indirect
 	gopkg.in/gormigrate.v1 v1.6.0
 	gopkg.in/yaml.v2 v2.2.4 // indirect
 )
